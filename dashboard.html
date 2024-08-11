@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Expenses Easily</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <main>
+        <!--Custom Top Bar-->
+        <div class="topBar-row">
+            <h1>DashBoard</h1>
+            <div class="search-container">
+                <input type="text" name="search" id="search" placeholder="Search...............">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="user-profile-image">
+                <i class="fas fa-bell"></i>
+                <img src="Assets/profile_image.png" alt="User Profile">
+                <div class="user-details">
+                    <h4 id="userName">Erastus</h4>
+                    <h5>Admin</h5>
+                </div>
+            </div>
+        </div>
+        <!--Overview Section-->
+        <div class="expense-body">
+            <!--Overview Analysis Section-->
+           <div class="overview-style">
+            <h1>Overview</h1>
+            <br>
+            <h2 id="TotalBudget"></h2>
+            <div class="overview-div">
+                <div class="total-budget">
+                    <h2>Remaining Budget</h2>
+                    <h4>Jan 2024</h4>
+                    
+                    <h3 id="remainingBudget"> </h3>
+                    <select name="this_month" id="month0">
+                        <option value="january">January</option>
+                        <option value="february">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
+                    </select>
+                </div>
+                <div class="total-epenses">
+                    <h2>Total Expenses</h2>
+                    <h4>Jan 2024</h4>
+                    
+                    <h3 id="totalExpenses"> </h3>
+                    <select name="this_month" id="this-month">
+                        <option value="january">January</option>
+                        <option value="february">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
+                    </select>
+                </div>
+                <div class="expense_Analysis">
+                    <h2>Expense Analysis</h2>
+                    <h4>Monthly</h4>
+                    <h3> </h3>
+                    <select name="this_month" id="month1">
+                        <option value="january">January</option>
+                        <option value="february">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
+                    </select>
+                </div>
+            </div>
+           </div>
+            <!--Expense BreakDown-->
+           <div class="breakdown">
+            <h2>Expense breakdown per category</h2>
+            <br>
+            <div class="expense-breakdown-piechart">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+           </div>
+
+        </div>
+          <!--Add Expense Button-->
+    <button class="add-expense-button" id="openModalBtn">Add Expense</button>
+    <!--Expense form-->
+   <div class="modal" id="expenseModal">
+       <div class="modal-content">
+           <span class="modal-close" id="closeModalBtn">&times; </span>
+           <h2>Add Expense</h2>
+               <form id="expenseForm" action="submit" method="POST">
+                   <div class="input-container">
+                       <label for="expenseName">Expense Name</label> <br>
+                       <input type="text" id="expenseName" name="expenseName" placeholder="Enter expense name" required><br>
+                   </div>
+                   <div class="input-container">
+                       <label for="expenseAmount">Amount</label><br>
+                       <input type="number" id="expenseAmount" name="expenseAmount" placeholder="Enter amount" required><br>
+                   </div>
+                   <div class="input-container">
+                    <label for="expenseCategory">Category</label><br>
+                    <select name="expenseCategory" id="expenseCategory" >
+                        <option value="rent">Rent</option>
+                        <option value="food">Food</option>
+                        <option value="transpot">Transport</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="health">Health</option>
+                        <option value="others">Others</option>
+                    </select>
+                </div>
+                   <div class="input-container">
+                       <label for="expenseDate">Date</label><br>
+                       <input type="date" id="expenseDate" name="expenseDate" required><br>
+                  </div>
+                   <button type="submit" id="submit-expense-btn">Submit</button>
+                   <h4 class="auth-msg" id="auth-msg"></h4>
+               </form>
+       </div>
+   </div>
+  
+
+ <!-- Budget Modal -->
+  <div id="budgetModal" class="modal">
+    <div class="modal-content">
+        <span id="closeBudgetModalBtn" class="close">&times;</span>
+        <h2>Set Budget</h2>
+        <form id="budgetForm">
+            <label for="budgetAmount">Budget Amount (USD):</label>
+            <input type="number" id="budgetAmount" required>
+            <button type="submit">Set Budget</button>
+            <p id="budget-auth-msg"></p>
+        </form>
+    </div>
+   </div>
+   
+   <!--Edit Expenses Modal-->
+   <div id="editExpenseModal" class="editModal">
+    <div class="edit-modal-content">
+        <span class="close-edit-modal" id="closeEditModal">&times;</span>
+        <h2>Edit Expense</h2>
+        <form id="editExpenseForm" action="edit" method="PUT">
+            <div class="input-container">
+                <label for="editExpenseName">Expense Name:</label> <br>
+                <input type="text" id="editExpenseName" name="editExpenseName" required><br>
+            </div>
+            <div class="input-container">
+                <label for="editExpenseAmount">Amount</label><br>
+                <input type="number" id="editExpenseAmount" name="editExpenseAmount" required><br>
+            </div>
+            <div class="input-container">
+             <label for="editExpenseCategory">Category</label><br>
+             <select name="editExpenseCategory" id="editExpenseCategory" >
+                 <option value="rent">Rent</option>
+                 <option value="food">Food</option>
+                 <option value="transpot">Transport</option>
+                 <option value="entertainment">Entertainment</option>
+                 <option value="health">Health</option>
+                 <option value="others">Others</option>
+             </select>
+         </div>
+            <div class="input-container">
+                <label for="editExpenseDate">Date</label><br>
+                <input type="date" id="editExpenseDate" name="editExpenseDate" required><br>
+           </div>
+            <button type="submit" id="submit-edit-expense-btn">Save Changes</button>
+            <h4 class="auth-msg" id="auth-msg"></h4>
+        </form>
+    </div>
+   </div>
+
+   <div class="expnses" id="allExpenses">
+    <h2>All Expenses</h2>
+    <br>
+    <table id="expensesTable" border="1">
+        <thead>
+            <tr>
+                <th>Expense No</th>
+                <th>Expense Name</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="expensesTableBody"></tbody>
+    </table>
+    
+   </div>
+    </main>
+    <aside>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="Assets/logo_2.png" alt="SMARTEXPENSE">
+                </div>
+            </div>
+            <div class="sidebar-links">
+                <ul>
+                    <li>
+                        <i class="fas fa-home"></i>
+                        <a href="">Home</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        <a href="">Profile</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-list"></i>
+                        <a href="">Expenses</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-dollar-sign"></i>
+                        <a href="#" id="budget-link">Budget</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-cog"></i>
+                        <a href="">Settings</a>
+                    </li>
+                    <li class="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <a href="" id="logout-btn">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+  
+    <!--JavaScript-->
+   <script src="dashboard.js"></script>
+
+</body>
+</html>
