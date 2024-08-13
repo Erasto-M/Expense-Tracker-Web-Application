@@ -275,8 +275,8 @@ app.get('/api/expenses/getExpense/:id', verifyToken, (req, res)=>{
 app.put('/api/expenses/updateExpenses/:id', verifyToken, (req, res)=>{
     try{
         const id = req.params.id;
-    const {amount, category, date} = req.body;
-    if(!id||!amount || !date ||!category){
+    const {amount,expenseName, category, date} = req.body;
+    if(!id||!amount ||!expenseName|| !date ||!category){
         return res.status(400).json({message: 'All fields are required'});
     }
     //formatted date 
@@ -286,13 +286,13 @@ app.put('/api/expenses/updateExpenses/:id', verifyToken, (req, res)=>{
     }
     const formattedDate = formatDate(date);
     //log items to be updated
-    console.log('Update values:', { id, amount, category, formattedDate, user_id: req.user_id });
+    console.log('Update values:', { id, amount,expenseName, category, formattedDate, user_id: req.user_id });
     // expenses
     const updateQuery = `UPDATE ${expenseTB} 
     SET amount = ?, category = ? , date = ?   WHERE 
     id = ? AND  user_id = ?
     `;
-    const values = [amount,category,formattedDate,id, req.user_id];
+    const values = [amount,category,expenseName,formattedDate,id, req.user_id];
     db.query(updateQuery, values, (err, result)=>{
         if(err) return res.status(500).json({message: 'something went wrong', error: err.message});
         if(result.affectedRows === 0){
