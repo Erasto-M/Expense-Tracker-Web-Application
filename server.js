@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 dotenv.config();
 const app = express();
-const port = 9000;
 const dbName = 'smartExpense_db';
 const usersTB = 'users';
 const expenseTB = 'expenses';
@@ -344,7 +343,7 @@ app.get('/api/expenses/getTotalExpenses' , verifyToken , (req, res)=>{
 });
 
 // server port listening
-app.listen(port, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log(`Server running at port ${port}`);
 });
 
