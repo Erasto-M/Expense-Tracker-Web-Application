@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 dotenv.config();
 const app = express();
-const dbName = 'smartExpense_db';
 const usersTB = 'users';
 const expenseTB = 'expenses';
 const budgetTB = 'budget';
@@ -22,6 +21,7 @@ const db = mysql.createConnection({
     host:  process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
+    database: process.env.MYSQL_DB,
 });
 
 //authentication token
@@ -42,17 +42,17 @@ const verifyToken = (req, res , next)=>{
 db.connect((err)=>{
     if(err) return console.log(err);
     console.log('Database Connected...............');
-    const createDB = `CREATE DATABASE IF NOT EXISTS ${dbName}`;
+    const createDB = `CREATE DATABASE IF NOT EXISTS ${process.id.MYSQL_DB}`;
     //create database
     db.query(createDB, (err)=>{
         if(err) return console.log(err);
-        console.log(`Database ${dbName} created successfully..`);
+        console.log(`Database ${process.env.MYSQL_DB} created successfully..`);
     
         //use database 
-        const useDb = `USE ${dbName}`;
+        const useDb = `USE ${process.env.MYSQL_DB}`;
         db.query(useDb , (err)=>{
             if(err) return console.log(err);
-            console.log(`Database ${dbName} checked `);
+            console.log(`Database ${process.env.MYSQL_DB} checked `);
             //create users table 
             const usersTable = `CREATE TABLE  IF NOT EXISTS ${usersTB} (
             id INT AUTO_INCREMENT  PRIMARY KEY,
@@ -342,11 +342,6 @@ app.get('/api/expenses/getTotalExpenses' , verifyToken , (req, res)=>{
    }
 });
 
-// server port listening
-app.listen(process.env.PORT, ()=>{
-    console.log(`Server running at port ${port}`);
-});
-
 //calculate total expenses based on expense records
 app.get('/api/expenses/getTotalExpensesByCategory',verifyToken, (req, res)=>{
     try{
@@ -411,4 +406,9 @@ app.get('/api/budget/getBudget', verifyToken, (req, res)=>{
     }catch(err){
         return res.status(500).json({message: "Somathing went wrong", error : err.message});
     }
+});
+
+// server port listening
+app.listen(process.env.PORT, ()=>{
+    console.log(`Server running at port ${process.env.PORT}`);
 });
