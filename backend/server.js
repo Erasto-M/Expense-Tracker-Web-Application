@@ -15,13 +15,15 @@ const  secretKey = process.env.SECRET_KEY;
 
 //use neccessary middlewares
 app.use(cors());
-app.use(express.json());
+app.use(express.json());clear
 
 const db = mysql.createConnection({
     host:  process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.MYSQL_DB,
+    port: process.env.PORT || 3306,
+    secretKey: process.env.SECRET_KEY,
 });
 
 //authentication token
