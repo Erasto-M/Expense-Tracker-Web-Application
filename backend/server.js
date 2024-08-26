@@ -9,7 +9,7 @@ const app = express();
 const usersTB = 'users';
 const expenseTB = 'expenses';
 const budgetTB = 'budget';
-const  secretKey = process.env.SECRET_KEY;
+const  secretKey = 'mysecretkey123jjdjnjvdhsdfdv';
 // console.log(`secret key: ${secretKey}`);
 
 
@@ -23,7 +23,6 @@ const db = mysql.createConnection({
     password: process.env.DB_PASS,
     database: process.env.MYSQL_DB,
     port: process.env.PORT || 3306,
-    secretKey: process.env.SECRET_KEY,
 });
 
 //authentication token
