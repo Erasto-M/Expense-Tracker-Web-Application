@@ -22,7 +22,6 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.MYSQL_DB,
-    port: process.env.PORT || 3306,
 });
 
 //authentication token
@@ -43,7 +42,7 @@ const verifyToken = (req, res , next)=>{
 db.connect((err)=>{
     if(err) return console.log(err);
     console.log('Database Connected...............');
-    const createDB = `CREATE DATABASE IF NOT EXISTS ${process.id.MYSQL_DB}`;
+    const createDB = `CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DB}`;
     //create database
     db.query(createDB, (err)=>{
         if(err) return console.log(err);
