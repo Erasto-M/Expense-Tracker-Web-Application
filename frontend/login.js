@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const form = document.getElementById('form');
     form.addEventListener('submit',async (e)=>{
         e.preventDefault();
+        const baseUrl = 'https://smart-expense-api-v1.onrender.com';
       
 
         const username = document.getElementById('username').value;
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const authmessage = document.getElementById('auth-msg');
 
         try{
-            const response = await fetch('http://localhost:9000/api/login',{
+            const response = await fetch(`${baseUrl}/api/login`,{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

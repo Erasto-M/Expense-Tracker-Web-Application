@@ -3,11 +3,11 @@
 document.addEventListener('DOMContentLoaded',  async function() {
     var ctx = document.getElementById('myChart').getContext('2d');
     fetchTotalExpensesPercategory();
-   
+    const baseUrl = 'https://smart-expense-api-v1.onrender.com';
     //fetch the data of expenses
     async function fetchTotalExpensesPercategory(){
         try{
-            const response = await fetch('http://localhost:9000/api/expenses/getTotalExpensesByCategory', {
+            const response = await fetch(`${baseUrl}/api/expenses/getTotalExpensesByCategory`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -96,7 +96,7 @@ window.addEventListener('click', function(event){
  /**Get user profile information */
     async function userProfileInfo(){
         try{
-            const response = await fetch('http://localhost:9000/api/userProfile', {
+            const response = await fetch(`${baseUrl}/api/userProfile`, {
                 method: 'GET',
                 headers:   {
                     "Content-Type": "application/json",
@@ -143,7 +143,7 @@ window.addEventListener('click', function(event){
     /**Get all curent User expenses and and them to the ui */
 async function getAllUserExpenses() {
     try {
-        const response = await fetch('http://localhost:9000/api/expenses/getUserExpenses', {
+        const response = await fetch(`${baseUrl}/api/expenses/getUserExpenses`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -206,7 +206,7 @@ async function getAllUserExpenses() {
 // Delete user expenses
 async function deleteUserExpenses(expenseid) {
     try {
-        const response = await fetch(`http://localhost:9000/api/expenses/deleteExpense/${expenseid}`, {
+        const response = await fetch(`${baseUrl}/api/expenses/deleteExpense/${expenseid}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -267,7 +267,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
     const date = document.getElementById('editExpenseDate').value;
 
     try {
-        const response = await fetch(`http://localhost:9000/api/expenses/updateExpenses/${currentExpenseId}`, {
+        const response = await fetch(`${baseUrl}/api/expenses/updateExpenses/${currentExpenseId}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -311,7 +311,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
          const authMessage =document.getElementById('auth-msg');
  
          try{
-             const response =  await  fetch('http://localhost:9000/api/expenses/addexpense', {
+             const response =  await  fetch(`${baseUrl}/api/expenses/addexpense`, {
                  method : 'POST',
                  headers: {
                      "Content-Type" : "application/json",
@@ -342,7 +342,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
   const authMessage = document.getElementById('budget-auth-msg');
 
   try {
-      const response = await fetch('http://localhost:9000/api/budget/setBudget', {
+      const response = await fetch(`${baseUrl}/api/budget/setBudget`, {
           method: 'POST',
           headers: {
               "Content-Type": "application/json",
@@ -368,7 +368,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
    //Display Budget
     async function fetchBudget() {
         try {
-            const response = await fetch('http://localhost:9000/api/budget/getBudget', {
+            const response = await fetch(`${baseUrl}/api/budget/getBudget`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -392,7 +392,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
       /**Get total User Expenses and update in the Ui */
       async function updateTotalExpenses(budgetAmount){
         try{
-            const response = await  fetch('http://localhost:9000/api/expenses/getTotalExpenses', {
+            const response = await  fetch(`${baseUrl}/api/expenses/getTotalExpenses`, {
                 method: "GET",
                 headers:   {
                     "Content-Type": "application/json",
@@ -433,7 +433,7 @@ editExpenseForm.addEventListener('submit', async function (e) {
     const LogoutButton = document.getElementById('logout-btn');
     LogoutButton.addEventListener('click', async function(){
         try{
-            const response = await fetch('http://localhost:9000/api/logout', {
+            const response = await fetch(`${baseUrl}/api/logout`, {
                 method: 'POST', 
                 headers: {
                     "Content-Type" : "application/json",

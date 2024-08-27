@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const authmessage = document.getElementById('auth-msg');
+        const baseUrl = 'https://smart-expense-api-v1.onrender.com';
         if(password !== confirmPassword){
             authmessage.textContent = 'Passwords do not match';
             alert('Passwords do not match');
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
 
         try{
-            const respose = await fetch('http://localhost:9000/api/register',{
+            const respose = await fetch(`${baseUrl}/api/register`,{
                method: 'POST',
                headers : {
                 'Content-Type': 'application/json'
