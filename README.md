@@ -4,7 +4,7 @@
 ![image](https://github.com/user-attachments/assets/aa979dfb-0df4-4c2a-ac88-f8b07f99c71e)
 
 ## Expense Dashboard
-![Uploading image.png…]()
+![alt text](Assets/dashboard.png)
 
 
 
